@@ -13,19 +13,16 @@ import static org.junit.Assert.*;
 public class DirectFriendsListsGeneratorTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
     }
 
     @After
     public void cleanUpStreams() {
         System.setIn(System.in);
         System.setOut(System.out);
-        System.setErr(System.err);
 
     }
 
