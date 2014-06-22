@@ -27,7 +27,7 @@ public class ReverseLookupPairsGenerator {
             while (input != null) {
                 try {
                     FriendsOfAPerson friendsOfAPerson = FriendsOfAPerson.createFromInputString(input);
-                    //output original friendship list sorted by key
+                    //output original friendship list
                     out.println(input);
                     //output reverse lookup pairs based on the friendship list
                     out.print(friendsOfAPerson.createReverseLookupPairs());
