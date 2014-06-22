@@ -29,13 +29,17 @@ public class DuplicateFriendshipPairsGeneratorTest {
 
     }
 
+    private void feedInputIntoTestClass(String input) {
+        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        DuplicateFriendshipPairsGenerator.main(new String[]{});
+    }
+
     @Test
     public void main_shouldDuplicateGivenInputPairForValidInput() throws Exception {
         String input = "Walter\tLisa\n";
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
+        feedInputIntoTestClass(input);
 
-        DuplicateFriendshipPairsGenerator.main(new String[]{});
         String expectedOutput = "Walter\tLisa\n"
                                 + "Lisa\tWalter\n";
         assertEquals(expectedOutput, outContent.toString());
@@ -45,10 +49,8 @@ public class DuplicateFriendshipPairsGeneratorTest {
     public void main_shouldHandleMoreThanOneInputPairProperly() throws Exception {
         String input = "Walter\tLisa\n" +
                        "Susan\tLisa\n";
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
+        feedInputIntoTestClass(input);
 
-        DuplicateFriendshipPairsGenerator.main(new String[]{});
         String expectedOutput = "Walter\tLisa\n" +
                                 "Lisa\tWalter" +
                                 "\nSusan\tLisa\n" +
@@ -61,10 +63,8 @@ public class DuplicateFriendshipPairsGeneratorTest {
     public void main_shouldNotOutputInputValuesForMalformedInput() throws Exception {
         String input = "Walter\n" +
                        "Lisa\n";
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
+        feedInputIntoTestClass(input);
 
-        DuplicateFriendshipPairsGenerator.main(new String[]{});
         assertFalse(outContent.toString().contains("Walter"));
         assertFalse(outContent.toString().contains("Lisa"));
     }
@@ -73,10 +73,8 @@ public class DuplicateFriendshipPairsGeneratorTest {
     public void main_shouldProperlyOutputAllWellFormedPairsEvenIfInputContainsMalformedPairs() throws Exception {
         String input = "Walter\tLisa\n" +
                 "Susan\n";
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
+        feedInputIntoTestClass(input);
 
-        DuplicateFriendshipPairsGenerator.main(new String[]{});
         String expectedOutput = "Walter\tLisa\n" +
                                 "Lisa\tWalter\n";
         assertEquals(expectedOutput, outContent.toString());
