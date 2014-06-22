@@ -58,7 +58,6 @@ public class DuplicateFriendshipPairsGeneratorTest {
         assertEquals(expectedOutput, outContent.toString());
     }
 
-
     @Test
     public void main_shouldNotOutputInputValuesForMalformedInput() throws Exception {
         String input = "Walter\n" +
