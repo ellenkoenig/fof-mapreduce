@@ -28,10 +28,6 @@ public class FriendsOfAPerson {
         return friendsOfAPerson;
     }
 
-    public void addFriend(String friend) {
-        friends.add(friend);
-    }
-
     public String createReverseLookupPairs() {
         StringBuilder friendsList = new StringBuilder();
         for(String friend: friends) {
