@@ -18,22 +18,21 @@ public class DuplicateFriendshipPairsGenerator {
     private static final Logger LOG = LoggerFactory.getLogger(DuplicateFriendshipPairsGenerator.class);
 
     public static void main(String [ ] args) {
-        LOG.info("Starting mapping step 1");
+        LOG.info("Starting step 1: Map");
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
         try {
             String inputPair = bufferedReader.readLine();
             while (inputPair != null) {
-                String[] pair = inputPair.split("\\s+");
-                if(pair.length == 2) {
-                    out.println(pair[0] + "\t" + pair[1]);
-                    out.println(pair[1] + "\t" + pair[0]);
-                } else {
-                    LOG.warn("Encountered malformed input line : {}", inputPair);
+                try {
+                    FriendshipPair pair = FriendshipPair.createFromInputLine(inputPair, "\t");
+                    out.println(pair.pairInNormalOrder("\t"));
+                    out.println(pair.pairInReverseOrder("\t"));
+                } catch (IllegalArgumentException e) {
+                    LOG.warn("Encountered malformed input line: {}", inputPair);
                 }
                 inputPair = bufferedReader.readLine();
             }
-
         } catch (IOException e) {
             LOG.error("Could not read input from console, reason: {}", e);
         }
