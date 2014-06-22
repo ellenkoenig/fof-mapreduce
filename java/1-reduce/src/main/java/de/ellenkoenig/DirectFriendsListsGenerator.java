@@ -23,11 +23,10 @@ public class DirectFriendsListsGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(DirectFriendsListsGenerator.class);
 
-    public static void main(String [ ] args) {
+    public static void main(String[] args) {
         LOG.info("Starting step 1: Reduce");
-
+        FriendsOfAPerson friendsOfCurrentKeyPerson = new FriendsOfAPerson();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-        FriendsOfAPerson friendsOfKeyPerson = new FriendsOfAPerson();
 
         try {
             String inputPair = bufferedReader.readLine();
@@ -35,38 +34,36 @@ public class DirectFriendsListsGenerator {
             while (inputPair != null) {
                 try {
                     FriendshipPair currentFriendsPair = FriendshipPair.createFromInputLine(inputPair, "\t");
-                    friendsOfKeyPerson = mergeFriendsPairIntoFriendList(friendsOfKeyPerson, currentFriendsPair);
+                    friendsOfCurrentKeyPerson = mergeFriendsPairIntoFriendList(friendsOfCurrentKeyPerson, currentFriendsPair);
                 } catch (IllegalArgumentException e) {
                     LOG.warn("Encountered malformed input line: {}", inputPair);
                 }
                 inputPair = bufferedReader.readLine();
             }
-            out.println(friendsOfKeyPerson.toString());
+            out.println(friendsOfCurrentKeyPerson.toString());
 
         } catch (IOException e) {
             LOG.error("Could not read input from console, cause {}:", e);
         }
     }
 
-    private static FriendsOfAPerson mergeFriendsPairIntoFriendList(FriendsOfAPerson friendsOfKeyPerson, FriendshipPair currentFriendsPair) {
-        boolean keyPersonHasNotChangedYet = friendsOfKeyPerson.isPersonSet()
-                                          && friendsOfKeyPerson.getPerson().equals(currentFriendsPair.getKeyPerson());
-
-        if(keyPersonHasNotChangedYet) {
-            friendsOfKeyPerson.addFriend(currentFriendsPair.getFriend());
+    private static FriendsOfAPerson mergeFriendsPairIntoFriendList(FriendsOfAPerson friendList, FriendshipPair currentPair) {
+        boolean isKeyPersonOfListUnchanged = friendList.isPersonSet()
+                && friendList.getPerson().equals(currentPair.getKeyPerson());
+        if (isKeyPersonOfListUnchanged) {
+            friendList.addFriend(currentPair.getFriend());
         } else {
-            friendsOfKeyPerson = outputAndResetFriendList(friendsOfKeyPerson, currentFriendsPair);
+            friendList = outputAndRestartFriends(friendList, currentPair);
         }
-        return friendsOfKeyPerson;
+        return friendList;
     }
 
-    private static FriendsOfAPerson outputAndResetFriendList(FriendsOfAPerson friendsOfKeyPerson, FriendshipPair currentFriendsPair) {
-        if(friendsOfKeyPerson.hasFriends()) {
-            out.println(friendsOfKeyPerson.toString());
+    private static FriendsOfAPerson outputAndRestartFriends(FriendsOfAPerson friends, FriendshipPair currentFriendsPair) {
+        if (friends.hasFriends()) {
+            out.println(friends.toString());
         }
-        friendsOfKeyPerson.reset(currentFriendsPair.getKeyPerson());
-        friendsOfKeyPerson.addFriend(currentFriendsPair.getFriend());
-        return friendsOfKeyPerson;
+        friends.reset(currentFriendsPair.getKeyPerson());
+        friends.addFriend(currentFriendsPair.getFriend());
+        return friends;
     }
-
 }
