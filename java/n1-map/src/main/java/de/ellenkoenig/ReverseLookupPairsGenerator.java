@@ -1,5 +1,8 @@
 package de.ellenkoenig;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 
 import static java.lang.System.*;
@@ -14,30 +17,27 @@ import static java.lang.System.*;
  *     The original key (now value) is marked with the  prefix "#"
  */
 public class ReverseLookupPairsGenerator {
+    private static final Logger LOG = LoggerFactory.getLogger(ReverseLookupPairsGenerator.class);
 
     public static void main(String [ ] args) {
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
         try {
-            String inputPair = bufferedReader.readLine();
-            while (inputPair != null) {
-                //output friendship list sorted by key
-                out.println(inputPair);
-
-                String[] sourceAndTargetNodesPair = inputPair.split("\\s+");
-
-                if(sourceAndTargetNodesPair.length == 2) {
-                    String sourceNode = sourceAndTargetNodesPair[0];
-                    String[] targetNodes = sourceAndTargetNodesPair[1].split(",");
-                    for(String targetNode: targetNodes) {
-                        out.println(targetNode + "\t#" + sourceNode);
-                    }
+            String input = bufferedReader.readLine();
+            while (input != null) {
+                try {
+                    FriendsOfAPerson friendsOfAPerson = FriendsOfAPerson.createFromInputString(input);
+                    //output original friendship list sorted by key
+                    out.println(input);
+                    //output reverse lookup pairs based on the friendship list
+                    out.print(friendsOfAPerson.createReverseLookupPairs());
+                } catch (IllegalArgumentException e) {
+                    LOG.warn("Encountered malformed input line: {}", input);
                 }
-                inputPair = bufferedReader.readLine();
+                input = bufferedReader.readLine();
             }
-
         } catch (IOException e) {
-            err.println("Could not read input from console, cause:" + e);
+            LOG.error("Could not read input from console, cause {}:", e);
         }
     }
 
