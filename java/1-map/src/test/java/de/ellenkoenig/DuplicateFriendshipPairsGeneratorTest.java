@@ -71,7 +71,7 @@ public class DuplicateFriendshipPairsGeneratorTest {
     @Test
     public void main_shouldProperlyOutputAllWellFormedPairsEvenIfInputContainsMalformedPairs() throws Exception {
         String input = "Walter\tLisa\n" +
-                "Susan\n";
+                        "Susan\n";
         feedInputIntoTestClass(input);
 
         String expectedOutput = "Walter\tLisa\n" +
