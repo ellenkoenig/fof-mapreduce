@@ -22,7 +22,6 @@ import static java.lang.System.out;
  * There must be exactly one friendship list per key in the input
  *
  *  TODO: min Testcases: shouldEmitOriginalFriendshipList, shouldEmitNewIndirectFriends (test with only input b-#, b-c, expected: contains c-a)
-
  */
 public class IndirectFriendsListsGenerator {
 
