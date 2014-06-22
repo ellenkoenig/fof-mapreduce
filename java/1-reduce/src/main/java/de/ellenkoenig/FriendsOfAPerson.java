@@ -37,12 +37,10 @@ public class FriendsOfAPerson {
     public void reset(String newPerson) {
         this.person = newPerson;
         friends.clear();
-
     }
 
     @Override
     public String toString() {
          return person + "\t" + StringUtils.join(friends, ",");
     }
-
 }
