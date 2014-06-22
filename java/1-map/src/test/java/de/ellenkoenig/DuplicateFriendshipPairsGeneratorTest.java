@@ -78,7 +78,7 @@ public class DuplicateFriendshipPairsGeneratorTest {
 
         DuplicateFriendshipPairsGenerator.main(new String[]{});
         String expectedOutput = "Walter\tLisa\n" +
-                "Lisa\tWalter\n";
+                                "Lisa\tWalter\n";
         assertEquals(expectedOutput, outContent.toString());
     }
 }
