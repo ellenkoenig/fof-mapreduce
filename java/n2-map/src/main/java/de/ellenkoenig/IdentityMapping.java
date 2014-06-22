@@ -21,7 +21,6 @@ public class IdentityMapping {
                 out.println(inputPair);
                 inputPair = bufferedReader.readLine();
             }
-
         } catch (IOException e) {
             err.println("Could not read input from console, cause:" + e);
         }
