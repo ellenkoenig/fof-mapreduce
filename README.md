@@ -15,7 +15,7 @@ cat ../testdata/testinput.txt | \
  java -jar map/target/map-1.0-jar-with-dependencies.jar |\
  sort -k1,1 | java -jar reduce/target/reduce-1.0-jar-with-dependencies.jar |\
  ````
- To achieve the requested output for n = 2, you can run the "run.sh" in the "java" directory.
+ To see the requested output for n = 2, you can also run the "run.sh" in the "java" directory.
  
  
 
