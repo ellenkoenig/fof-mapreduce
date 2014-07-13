@@ -1,1 +1,6 @@
-cat ../testdata/testinput.txt | java -jar 1-map/target/1-map-1.0-jar-with-dependencies.jar | sort -k1,1 | java -jar 1-reduce/target/1-reduce-1.0-jar-with-dependencies.jar | java -jar n1-map/target/n1-map-1.0-jar-with-dependencies.jar | sort -k1,1 | java -jar n1-reduce/target/n1-reduce-1.0-jar-with-dependencies.jar | java -jar n2-map/target/n2-map-1.0-jar-with-dependencies.jar | sort -k1,1 | java -jar n2-reduce/target/n2-reduce-1.0-jar-with-dependencies.jar
+#!/bin/sh
+cat ../testdata/testinput.txt | \
+ java -jar map/target/map-1.0-jar-with-dependencies.jar |\
+ sort -k1,1 | java -jar reduce/target/reduce-1.0-jar-with-dependencies.jar |\
+ java -jar map/target/map-1.0-jar-with-dependencies.jar |\
+ sort -k1,1 | java -jar reduce/target/reduce-1.0-jar-with-dependencies.jar
