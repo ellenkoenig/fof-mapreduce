@@ -30,7 +30,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.ellenkoenig.FriendsListsGenerator</mainClass>
+                            <mainClass>de.ellenkoenig.FriendsSetsGenerator</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>

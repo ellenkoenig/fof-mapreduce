@@ -10,7 +10,7 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.*;
 
-public class DuplicateFriendshipPairsGeneratorTest {
+public class FriendsSetsGeneratorTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
@@ -29,36 +29,36 @@ public class DuplicateFriendshipPairsGeneratorTest {
     private void feedInputIntoTestClass(String input) {
         ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
-        FriendshipPairsGenerator.main(new String[]{});
+        FriendsSetsGenerator.main(new String[]{});
     }
 
     @Test
-    public void main_shouldDuplicateGivenInputPairForValidInput() throws Exception {
-        String input = "Walter\tLisa\n";
+    public void main_should_combinePairsWithSameKeyIntoList() throws Exception {
+        String input = "Walter\tLisa\n" +
+                        "Walter\tSusan\n" +
+                         "Walter\tBill";
         feedInputIntoTestClass(input);
 
-        String expectedOutput = "Walter\tLisa\n"
-                                + "Lisa\tWalter\n";
+        String expectedOutput = "Walter\tBill\tLisa\tSusan\n";
         assertEquals(expectedOutput, outContent.toString());
     }
 
     @Test
-    public void main_shouldHandleMoreThanOneInputPairProperly() throws Exception {
+    public void main_should_combinePairsWithDifferentKeysIntoDifferentLists() throws Exception {
         String input = "Walter\tLisa\n" +
-                       "Susan\tLisa\n";
+                "Walter\tSusan\n" +
+                "Lena\tBill\n";
         feedInputIntoTestClass(input);
 
-        String expectedOutput = "Walter\tLisa\n" +
-                                "Lisa\tWalter" +
-                                "\nSusan\tLisa\n" +
-                                "Lisa\tSusan\n";
+        String expectedOutput = "Walter\tLisa\tSusan\n" +
+                                "Lena\tBill\n";
         assertEquals(expectedOutput, outContent.toString());
     }
 
     @Test
     public void main_shouldNotOutputInputValuesForMalformedInput() throws Exception {
         String input = "Walter\n" +
-                       "Lisa\n";
+                        "Lisa\n";
         feedInputIntoTestClass(input);
 
         assertFalse(outContent.toString().contains("Walter"));
@@ -68,11 +68,12 @@ public class DuplicateFriendshipPairsGeneratorTest {
     @Test
     public void main_shouldProperlyOutputAllWellFormedPairsEvenIfInputContainsMalformedPairs() throws Exception {
         String input = "Walter\tLisa\n" +
-                        "Susan\n";
+                        "Susan\n" +
+                        "Lena\tBill\n";
         feedInputIntoTestClass(input);
 
         String expectedOutput = "Walter\tLisa\n" +
-                                "Lisa\tWalter\n";
+                                "Lena\tBill\n";
         assertEquals(expectedOutput, outContent.toString());
     }
 }

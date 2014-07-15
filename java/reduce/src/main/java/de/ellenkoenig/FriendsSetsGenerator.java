@@ -11,21 +11,18 @@ import static java.lang.System.in;
 import static java.lang.System.out;
 
 /**
- * Reduce sub-step of the first MapReduce step,  which aims to transform the pair list given in the input file
- * into an adjacency list representation of a friendship graph of direct friends.
- *
- * This sub-step combines all of the friendship pairs for a person generated in the map step into a list containing
- * all first-degree friends.
+ * Reduce step of the algorithm, which combines all of the friendship pairs for a person generated
+ * in the map step into a list containing all direct (= 1st degree) and indirect (= n-th degree) friends.
  * The input list of friendship pairs must be sorted by the first element in the pair.
  *
  */
-public class FriendsListsGenerator {
+public class FriendsSetsGenerator {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FriendsListsGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FriendsSetsGenerator.class);
 
     public static void main(String[] args) {
         LOG.info("Starting step 1: Reduce");
-        FriendsList friendsOfCurrentKeyPerson = new FriendsList();
+        FriendsSet friendsOfCurrentKeyPerson = new FriendsSet();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
 
         try {
@@ -37,10 +34,9 @@ public class FriendsListsGenerator {
                     if (keyPersonIsStillTheSame) {
                         friendsOfCurrentKeyPerson.addFriend(currentFriendsPair.getSecondPersonsName());
                     } else {
-                        outputFriendsList(friendsOfCurrentKeyPerson);
+                        outputFriends(friendsOfCurrentKeyPerson);
                         friendsOfCurrentKeyPerson.reset(currentFriendsPair.getFirstPersonsName());
                         friendsOfCurrentKeyPerson.addFriend(currentFriendsPair.getSecondPersonsName());
-
                     }
 
                 } catch (IllegalArgumentException e) {
@@ -48,16 +44,15 @@ public class FriendsListsGenerator {
                 }
                 input = bufferedReader.readLine();
             }
-            out.println(friendsOfCurrentKeyPerson.toString());
-
+            outputFriends(friendsOfCurrentKeyPerson);
         } catch (IOException e) {
             LOG.error("Could not read input from console, cause {}:", e);
         }
     }
 
-    private static void outputFriendsList(FriendsList friendsList) {
-        if (friendsList.hasFriends()) {
-            out.println(friendsList.toString());
+    private static void outputFriends(FriendsSet friends) {
+        if (friends.hasFriends()) {
+            out.println(friends.toString());
         }
     }
 

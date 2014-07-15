@@ -1,9 +1,11 @@
 package de.ellenkoenig;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.util.Set;
 
 import static java.lang.System.*;
 
@@ -27,8 +29,8 @@ public class FriendshipPairsGenerator {
             String input = bufferedReader.readLine();
             while (input != null) {
                 try {
-                    FriendsList friends = FriendsList.fromString(input);
-                    out.print(friends.generateFriendshipPairs());
+                    FriendsSet friends = FriendsSet.fromString(input);
+                    outputFriendshipPairs(friends.generateFriendshipPairs());
                 } catch (IllegalArgumentException e) {
                     LOG.warn("Encountered malformed input line: {}", input);
                 }
@@ -39,4 +41,8 @@ public class FriendshipPairsGenerator {
         }
     }
 
+    private static void outputFriendshipPairs(Set<FriendshipPair> friends) {
+        String output = StringUtils.join(friends, "\n");
+        out.println(output);
+    }
 }
