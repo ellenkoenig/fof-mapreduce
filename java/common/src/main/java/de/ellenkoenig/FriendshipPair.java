@@ -56,7 +56,7 @@ public class FriendshipPair {
 
         if (firstPersonsName != null ? !firstPersonsName.equals(that.firstPersonsName) : that.firstPersonsName != null)
             return false;
-        return (secondPersonsName != null ? !secondPersonsName.equals(that.secondPersonsName) : that.secondPersonsName != null);
+        if (secondPersonsName != null ? !secondPersonsName.equals(that.secondPersonsName) : that.secondPersonsName != null)
             return false;
 
         return true;
