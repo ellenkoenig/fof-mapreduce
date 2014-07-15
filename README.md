@@ -23,7 +23,7 @@ cat ../testdata/testinput.txt | \
 
 The map step goes over each input line, and for each line, computes all permutations of each each name in the line. This results in a time complexity of O(| lines | * | names | ^ 2)
 
-The reduce step goes over each of the |lines| * |names| ^ 2 pairs generated in the map step, and handles each pair exactly once to merge it into the resulting friends list. This also results in a complexity of  O(|lines| * |names| ^ 2).
+The reduce step goes over each of the | lines | * | names | ^ 2 pairs generated in the map step, and handles each pair exactly once to merge it into the resulting friends list. This also results in a complexity of  O(|lines| * |names| ^ 2).
 
 The overall complexity of the algorithm is therefore  O(| lines | * | names | ^ 2)
  
