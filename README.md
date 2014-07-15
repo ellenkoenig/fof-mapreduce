@@ -4,7 +4,7 @@ MapReduce (Hadoop streaming API) version of an algorithm to compute the friends 
 
 ## Building and running the project
 
-To build, please run the following command:
+To build, please run the following command from the *"java"* sub-directory:
 ````
 mvn clean assembly:assembly
 `````
