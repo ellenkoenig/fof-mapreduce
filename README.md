@@ -3,12 +3,12 @@ fof-mapreduce
 
 MapReduce (Hadoop streaming API) version of an algorithm to compute the friends of friends in a given friends graph iteratively  
 
-To build, please run the following command (tests are currently not working due to the rewrite)
+To build, please run the following command:
 ````
-mvn clean assembly:assembly -DskipTests 
+mvn clean assembly:assembly
 `````
 
-To execute, chain the generated jars for as many iterations as you like, e.g. from the "java" directory, execute the following to run one iteration: 
+To execute, chain the generated jars for as many iterations as you like. E.g. from the *"java"* directory, execute the following to run one iteration: 
 
 ````
 cat ../testdata/testinput.txt | \
